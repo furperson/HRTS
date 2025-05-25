@@ -1,4 +1,5 @@
-/docs/cyiv-51005.pdf
-/docs/cyiv-53001.pdf
+server/docs/cyiv-51005.pdf
+server/docs/cyiv-53001.pdf
 /CMakeFiles
-/CMakeFiles/
+/build
+/html

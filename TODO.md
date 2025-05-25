@@ -1,0 +1,1 @@
+WIRING убрать из hardware
