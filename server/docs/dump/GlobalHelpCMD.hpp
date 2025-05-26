@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Command/Command.hpp"
 #include "IOunit/IOunit.hpp"
 #include "Scenario.hpp"
@@ -7,7 +5,7 @@
 
 #include <vector>
 
-class PrintScenarioCMD : public Command {
+class GlobalHelpCMD : public Command {
   private:
     /* data */
     IOunit* iounit  = nullptr;
@@ -20,14 +18,12 @@ class PrintScenarioCMD : public Command {
     void AttachContext(const Context&) override;
 
     void Execute(ParsedCMD&) override;
-    PrintScenarioCMD() = default;
-    ~PrintScenarioCMD() override ;
+    GlobalHelpCMD() = default;
+    ~GlobalHelpCMD() override ;
 };
 
-struct PrntScenContext : public Context {
-    PrntScenContext(IOunit&,std::vector<Scenario>&);
-    IOunit& iounit;
-    std::vector<Scenario>& scenarioStore;
-    ~PrntScenContext() override ;
-    PrntScenContext() = delete;
+struct GlobalHelpContext : public Context {
+    GlobalHelpContext(IOunit&,std::vector<Scenario>&);
+    ~GlobalHelpContext() override ;
+    GlobalHelpContext() = delete;
 };

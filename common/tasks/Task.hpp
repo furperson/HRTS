@@ -12,11 +12,11 @@ class Task {
   private:
     Scenario scenario;
     TaskState state;
-    BitArtef artef;
     time_t processingStartTime;
     time_t processingEndTime;
 
   public:
+    BitArtef artef;
     void setProcessingStartTime(const time_t&);
     const time_t& getProcessingStartTime() const;
     void setProcessingEndTime(const time_t&);
@@ -32,5 +32,5 @@ class Task {
     Task(const Scenario&);
 
     Task() = delete;
-    ~Task();
+    ~Task() = default;
 };

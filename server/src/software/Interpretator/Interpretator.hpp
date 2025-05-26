@@ -7,15 +7,17 @@
 
 #include "PreParser.hpp"
 #include "Command/Command.hpp"
+#include <functional>
 
 
 class Interpretator
 {
 private:
-std::unordered_map<std::string,Command> handlers;
+std::unordered_map<std::string,Command*> commands;
 public:
     void processCMD (ParsedCMD&);
-    void addCMD(std::string, Command&);
+    void addCMD(Command&);
+    
     Interpretator() = default;
     ~Interpretator() = default;
 };

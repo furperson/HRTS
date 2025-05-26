@@ -3,14 +3,17 @@
 //обёртка , абстракция над физическим устройством(плате fpga)
 
 
-enum class BoardState {Monday = 1, Mon = 1, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday };
+enum class BoardState {IDLE,IN_WORK,DISABLED};
 
 class BoardWrapper
 {
 private:
     BoardState boardState;
-    /* data */
+    int port;
+    //PLACEHOLDER 
+
 public:
-    BoardWrapper(/* args */);
+    BoardWrapper()=delete;
+    BoardWrapper(int);
     ~BoardWrapper();
 };

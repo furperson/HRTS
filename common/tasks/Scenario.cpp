@@ -19,14 +19,12 @@ Scenario::Scenario(
     int testDurationMs,
     int stopScenarioPin,
     const std::string& fpgaFirmwareName,
-    const std::string& dataFileName,
     const std::array<bool, 64>& pinScanEnable,
     const std::vector<PinBusGroup>& pinNaming)
     : m_scenarioName(scenarioName),
       m_testDurationMs(testDurationMs),
       m_stopScenarioPin(stopScenarioPin),
       m_fpgaFirmwareName(fpgaFirmwareName),
-      m_dataFileName(dataFileName),
       m_pinScanEnable(pinScanEnable),
       m_pinNaming(pinNaming) {}
 
@@ -47,9 +45,6 @@ const std::string& Scenario::getFpgaFirmwareName() const {
     return m_fpgaFirmwareName; 
 }
 
-const std::string& Scenario::getDataFileName() const { 
-    return m_dataFileName; 
-}
 
 const std::array<bool, 64>& Scenario::getPinScanEnable() const { 
     return m_pinScanEnable; 
@@ -84,10 +79,6 @@ void Scenario::setFpgaFirmwareName(const std::string& firmwareName) {
     m_fpgaFirmwareName = firmwareName; 
 }
 
-void Scenario::setDataFileName(const std::string& dataFile) { 
-    m_dataFileName = dataFile; 
-}
-    
 void Scenario::setPinScanEnable(const std::array<bool, 64>& scanEnable) { 
     m_pinScanEnable = scanEnable; 
 }

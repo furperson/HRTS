@@ -7,9 +7,6 @@
 
 #include <nlohmann/json.hpp>
 
-
-//
-
 // Вспомогательная структура для мапинга пинов в группы
 // (группы могут пересекаться)
 // сделать немутабельным в каком-то смысле
@@ -29,7 +26,7 @@ private:
     int m_testDurationMs;
     int m_stopScenarioPin;
     std::string m_fpgaFirmwareName;
-    std::string m_dataFileName;
+
     std::array<bool, 64> m_pinScanEnable; // Массив из 64 булевых значений
     std::vector<PinBusGroup> m_pinNaming;
 
@@ -43,7 +40,6 @@ public:
         int testDurationMs,
         int stopScenarioPin,
         const std::string& fpgaFirmwareName,
-        const std::string& dataFileName,
         const std::array<bool, 64>& pinScanEnable,
         const std::vector<PinBusGroup>& pinNaming);
 
@@ -51,7 +47,6 @@ public:
     int getTestDurationMs() const;
     int getStopScenarioPin() const;
     const std::string& getFpgaFirmwareName() const;
-    const std::string& getDataFileName() const;
     const std::array<bool, 64>& getPinScanEnable() const;
     bool getPinScanEnable(size_t index) const;
     const std::vector<PinBusGroup>& getPinNaming() const;
@@ -60,7 +55,6 @@ public:
     void setTestDurationMs(int duration);
     void setStopScenarioPin(int pin);
     void setFpgaFirmwareName(const std::string& firmwareName);
-    void setDataFileName(const std::string& dataFile);
     void setPinScanEnable(const std::array<bool, 64>& scanEnable);
     void setPinScanEnable(size_t index, bool value);
     void setPinNaming(const std::vector<PinBusGroup>& naming);
@@ -68,29 +62,64 @@ public:
 };
 
 
-namespace nlohmann
-{
-// Специализация adl_serializer для PinBusGroup
-template <>
-struct adl_serializer<PinBusGroup>
-{
-    // Преобразование из JSON в PinBusGroup
-    static PinBusGroup from_json(const json& j);
 
-    // Преобразование из PinBusGroup в JSON
-    // (передаем pbg по значению, как в исходном примере, хотя const& тоже хорошо)
-    static void to_json(json& j, PinBusGroup pbg);
-};
+namespace nlohmann {
 
-// Специализация adl_serializer для Scenario
-template <>
-struct adl_serializer<Scenario>
-{
-    // Преобразование из JSON в Scenario
-    static Scenario from_json(const json& j);
+    // Специализация для PinBusGroup
+    template <>
+    struct adl_serializer<PinBusGroup> {
+        // Функция для преобразования PinBusGroup в JSON
+        static void to_json(json& j, const PinBusGroup& pbg) {
+            j = json{
+                {"bus_name", pbg.bus_name},
+                {"pins", pbg.pins},
+                {"isLSB", pbg.isLSB}
+            };
+        }
 
-    // Преобразование из Scenario в JSON
-    // (передаем config по значению, используем геттеры для доступа к приватным членам)
-    static void to_json(json& j, Scenario config);
-};
-} 
+        // Функция для создания PinBusGroup из JSON
+        static PinBusGroup from_json(const json& j) {
+            return PinBusGroup(
+                j.at("bus_name").get<std::string>(),
+                j.at("pins").get<std::vector<int>>(),
+                // Используем j.value(), чтобы учесть значение по умолчанию для isLSB,
+                // если оно отсутствует в JSON
+                j.value("isLSB", true) 
+            );
+        }
+    };
+
+    // Специализация для Scenario
+    template <>
+    struct adl_serializer<Scenario> {
+        // Функция для преобразования Scenario в JSON
+        static void to_json(json& j, const Scenario& s) {
+            j = json{
+                {"scenarioName", s.getScenarioName()},
+                {"testDurationMs", s.getTestDurationMs()},
+                {"stopScenarioPin", s.getStopScenarioPin()},
+                {"fpgaFirmwareName", s.getFpgaFirmwareName()},
+                {"pinScanEnable", s.getPinScanEnable()}, // std::array сериализуется как JSON массив
+                {"pinNaming", s.getPinNaming()}         // std::vector<PinBusGroup> будет использовать adl_serializer для PinBusGroup
+            };
+        }
+
+        // Функция для создания Scenario из JSON
+        static Scenario from_json(const json& j) {
+            // Предполагается, что все эти ключи присутствуют в JSON,
+            // так как конструктор Scenario требует все эти аргументы.
+            // Если какие-то поля могут быть опциональными, потребуется более сложная логика
+            // с проверками j.contains() и передачей значений по умолчанию в конструктор,
+            // либо изменение конструктора Scenario.
+            return Scenario(
+                j.at("scenarioName").get<std::string>(),
+                j.at("testDurationMs").get<int>(),
+                j.at("stopScenarioPin").get<int>(),
+                j.at("fpgaFirmwareName").get<std::string>(),
+                j.at("pinScanEnable").get<std::array<bool, 64>>(),
+                j.at("pinNaming").get<std::vector<PinBusGroup>>() // Использует from_json для PinBusGroup
+            );
+        }
+    };
+
+} // namespace nlohmann

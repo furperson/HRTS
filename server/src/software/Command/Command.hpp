@@ -1,3 +1,4 @@
+#pragma once
 #include<string>
 
 #include "PreParser.hpp"
@@ -6,9 +7,8 @@
 struct Context
 {
     virtual ~Context();
-    Context()=delete;
+    // Context()=delete;
 };
-
 
 
 //Комманды совершают действие над 
@@ -16,14 +16,28 @@ class Command
 {
     public:
     
-    virtual const std::string getTitle()=0;
+    virtual std::string getTitle()=0;
     virtual void getHelp()=0;
    
     virtual void Execute(ParsedCMD&) =0;
 
-    virtual void AttachContext(Context&) =0;
+    virtual void AttachContext(const Context&) =0;
 
     virtual ~Command();
 
 };
 
+
+class InvalidArgsCMD : public std::exception 
+{
+    public:
+    InvalidArgsCMD(const std::string& message): message{message}{};
+
+    const char* what() const noexcept override
+    {
+        return message.c_str();     //МБ ОШИБКА
+    };
+
+    private:
+    std::string message;    
+};
