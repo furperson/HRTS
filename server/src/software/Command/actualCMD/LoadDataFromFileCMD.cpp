@@ -1,12 +1,12 @@
 #include "Command/actualCMD/LoadDataFromFileCMD.hpp"
-#include "Server/Server.hpp"
-#include "PersistenceManager/PersistenceManager.hpp"
 
+#include "PersistenceManager/PersistenceManager.hpp"
+#include "Server/Server.hpp"
 
 void LoadDataFromFileCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
         if (!(iounit == nullptr)) {
-            meng->Load(*server,cmd.args[0]);
+            meng->Load(*server, cmd.args[0]);
         }
     }
 }
@@ -28,9 +28,11 @@ void LoadDataFromFileCMD::AttachContext(const Context& context) {
     this->meng = &(tmpContext.meng);
 }
 
-LoadDataToFileContext::LoadDataToFileContext(IOunit& iounit,Server& server, PersistenceManager& meng):iounit(iounit),server(server),meng(meng){
-    
-};
+LoadDataToFileContext::LoadDataToFileContext(IOunit& iounit, Server& server,
+                                             PersistenceManager& meng)
+    : iounit(iounit), server(server), meng(meng) {
+
+      };
 
 LoadDataFromFileCMD::~LoadDataFromFileCMD() {};
 

@@ -1,12 +1,12 @@
 #include "Command/actualCMD/OffloadDataToFileCMD.hpp"
-#include "Server/Server.hpp"
-#include "PersistenceManager/PersistenceManager.hpp"
 
+#include "PersistenceManager/PersistenceManager.hpp"
+#include "Server/Server.hpp"
 
 void OffloadDataToFileCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
         if (!(iounit == nullptr)) {
-            meng->Offload(*server,cmd.args[0]);
+            meng->Offload(*server, cmd.args[0]);
         }
     }
 }
@@ -28,9 +28,11 @@ void OffloadDataToFileCMD::AttachContext(const Context& context) {
     this->meng = &(tmpContext.meng);
 }
 
-OffloadDataToFileContext::OffloadDataToFileContext(IOunit& iounit,Server& server, PersistenceManager& meng):iounit(iounit),server(server),meng(meng){
-    
-};
+OffloadDataToFileContext::OffloadDataToFileContext(IOunit& iounit, Server& server,
+                                                   PersistenceManager& meng)
+    : iounit(iounit), server(server), meng(meng) {
+
+      };
 
 OffloadDataToFileCMD::~OffloadDataToFileCMD() {};
 

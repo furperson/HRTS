@@ -3,14 +3,14 @@
 #include "Command/Command.hpp"
 #include "IOunit/IOunit.hpp"
 #include "Scenario.hpp"
-#include <memory> 
 
+#include <memory>
 #include <vector>
 
 class PrintScenarioCMD : public Command {
   private:
     /* data */
-    IOunit* iounit  = nullptr;
+    IOunit* iounit = nullptr;
     std::vector<Scenario>* scenarioStore = nullptr;
 
   public:
@@ -21,13 +21,13 @@ class PrintScenarioCMD : public Command {
 
     void Execute(ParsedCMD&) override;
     PrintScenarioCMD() = default;
-    ~PrintScenarioCMD() override ;
+    ~PrintScenarioCMD() override;
 };
 
 struct PrntScenContext : public Context {
-    PrntScenContext(IOunit&,std::vector<Scenario>&);
+    PrntScenContext(IOunit&, std::vector<Scenario>&);
     IOunit& iounit;
     std::vector<Scenario>& scenarioStore;
-    ~PrntScenContext() override ;
+    ~PrntScenContext() override;
     PrntScenContext() = delete;
 };

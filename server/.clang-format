@@ -1,0 +1,66 @@
+Language: Cpp
+BasedOnStyle: LLVM
+
+# --- Отступы и ширина кода ---
+IndentWidth: 4              # Использовать 4 пробела для отступа
+UseTab: Never               # Никогда не использовать табы, только пробелы
+ContinuationIndentWidth: 4  # Отступ для переноса строк (обычно = IndentWidth)
+ColumnLimit: 100            # Максимальная длина строки
+
+# --- Расстановка скобок {} ---
+BreakBeforeBraces: Attach   # 'Attach' (стиль K&R) - открывающая скобка на той же строке
+                            # Альтернатива: 'Allman' (скобка на новой строке)
+AllowShortBlocksOnASingleLine: false # Не помещать короткие блоки { } на одну строку
+AllowShortFunctionsOnASingleLine: None # Не помещать короткие функции на одну строку (None/Empty/Inline/All)
+AllowShortIfStatementsOnASingleLine: Never # Никогда не помещать if без скобок или короткий if {} на одну строку
+AllowShortLoopsOnASingleLine: false # Не помещать короткие циклы for/while {} на одну строку
+AllowShortCaseLabelsOnASingleLine: false # Не помещать 'case X: break;' на одну строку
+
+# --- Пробелы ---
+SpacesBeforeTrailingComments: 1 # Один пробел перед //-комментарием в конце строки
+SpaceAfterCStyleCast: false    # Без пробела после каста в C-стиле: (int)x
+SpaceAfterTemplateKeyword: true # Пробел после 'template': template <typename T>
+SpaceBeforeAssignmentOperators: true # Пробел перед операторами присваивания (=, +=, ...)
+SpaceBeforeParens: ControlStatements # Пробел перед скобками только в управляющих конструкциях (if, for, while), но не в вызовах функций myFunc()
+SpacesInAngles: false          # Без пробелов внутри шаблонных скобок: vector<int>
+SpacesInContainerLiterals: false # Без пробелов в литералах контейнеров: {1, 2, 3}
+SpacesInParentheses: false     # Без пробелов внутри обычных скобок: ( foo ) -> (foo)
+SpacesInCStyleCastParentheses: false # Без пробелов внутри скобок C-каста: ( int ) -> (int)
+
+# --- Указатели и Ссылки ---
+PointerAlignment: Left      # Выравнивать * и & по левому краю (ближе к типу): int* p;
+                            # Альтернативы: Right (int *p;), Middle (int * p;)
+
+# --- Классы и Структуры ---
+BreakBeforeInheritanceComma: false # Не разрывать строку перед запятой в списке наследования
+BreakConstructorInitializers: BeforeColon # Разрывать список инициализации конструктора перед двоеточием, если он не помещается. Выравнивает инициализаторы вертикально.
+ConstructorInitializerIndentWidth: 4 # Отступ для списка инициализации (обычно = IndentWidth)
+AllowAllConstructorInitializersOnNextLine: true # Если список инициализации переносится, переносить все на новую строку для единообразия
+SortInheritance: false      # Не сортировать список наследования (обычно порядок важен)
+
+# --- Пространства имен ---
+NamespaceIndentation: None  # Не добавлять отступ внутри пространств имен: namespace N { class C; }
+                            # Альтернатива: Inner (отступ только для содержимого), All (отступ и для строки namespace)
+
+# --- Директивы препроцессора ---
+IndentPPDirectives: None    # Не управлять отступами директив препроцессора (None/AfterHash/BeforeHash)
+AlignConsecutiveMacros: false # Не выравнивать определения макросов
+
+
+
+# --- Includes ---
+SortIncludes: true          # Сортировать #include директивы
+IncludeBlocks: Regroup      # Перегруппировывать блоки include после сортировки
+
+# --- Прочее ---
+
+BinPackArguments: true      # Упаковывать аргументы функций более плотно, если возможно
+BinPackParameters: true     # Упаковывать параметры функций более плотно, если возможно
+FixNamespaceComments: true  # Добавлять // namespace N в конце длинных пространств имен
+
+# Отключить форматирование для блоков кода, обернутых в:
+# // clang-format off
+# ... code ...
+# // clang-format on
+DisableFormat: false
+...

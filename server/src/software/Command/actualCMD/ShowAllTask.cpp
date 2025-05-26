@@ -3,11 +3,10 @@
 void ShowAllTask::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 0) {
         if (!(iounit == nullptr)) {
-            for(auto& task: *taskStore){
-                iounit->write("Task: "+ task.getScenario().getScenarioName()+ "\n");
-                iounit->write("\t Task_state: "+ stateToString[task.getState()]+"\n");
-                iounit->write("\t Task_Scen_Name: "+  task.getScenario().getScenarioName()+"\n");
-
+            for (auto& task : *taskStore) {
+                iounit->write("Task: " + task.getScenario().getScenarioName() + "\n");
+                iounit->write("\t Task_state: " + stateToString[task.getState()] + "\n");
+                iounit->write("\t Task_Scen_Name: " + task.getScenario().getScenarioName() + "\n");
             }
         }
     }
@@ -29,9 +28,10 @@ void ShowAllTask::AttachContext(const Context& context) {
     this->taskStore = &(tmpContext.taskStore);
 }
 
-ShowAllTaskContext::ShowAllTaskContext(IOunit& iounit,std::vector<Task>& task):iounit(iounit),taskStore(task) {
-    
-};
+ShowAllTaskContext::ShowAllTaskContext(IOunit& iounit, std::vector<Task>& task)
+    : iounit(iounit), taskStore(task) {
+
+      };
 
 ShowAllTask::~ShowAllTask() {};
 

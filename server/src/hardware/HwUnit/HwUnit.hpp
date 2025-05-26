@@ -1,22 +1,21 @@
 #pragma once
 
-#include <vector>
-#include <queue>
-
-#include "Task.hpp"
 #include "BoardWrapper.hpp"
 #include "HwUnit/HwOrbitor.hpp"
+#include "Task.hpp"
+
 #include <algorithm>
+#include <queue>
+#include <vector>
 
-
-// принимает 
-class HwUnit 
-{
-private:
+// принимает
+class HwUnit {
+  private:
     std::vector<Task> taskQueue;
     std::vector<BoardWrapper*> boards;
     HwOrbitor orbitor;
-public:
+
+  public:
     void startOrbitor();
     void putTask(Task&);
     void addBoard(BoardWrapper&);

@@ -1,8 +1,8 @@
-#include <iostream>
-#include <string>
-#include <csignal> // Для signal
 #include <atomic>  // Для std::atomic_bool (потокобезопасный флаг)
-#include <limits>  // Для std::numeric_limits
+#include <csignal> // Для signal
+#include <iostream>
+#include <limits> // Для std::numeric_limits
+#include <string>
 
 // Глобальный флаг, который будет установлен обработчиком сигнала
 // std::atomic_bool гарантирует безопасное изменение из обработчика сигнала
@@ -32,15 +32,16 @@ void handle_sigint(int signal_num) {
 //     // struct sigaction sa;
 //     // sa.sa_handler = handle_sigint;
 //     // sigemptyset(&sa.sa_mask); // Не блокировать другие сигналы во время выполнения этого
-//     // sa.sa_flags = 0; // Можно SA_RESTART для автоматического перезапуска некоторых системных вызовов
+//     // sa.sa_flags = 0; // Можно SA_RESTART для автоматического перезапуска некоторых системных
+//     вызовов
 //     // if (sigaction(SIGINT, &sa, NULL) == -1) {
 //     //     perror("sigaction");
 //     //     return 1;
 //     // }
 
-
 //     std::string line;
-//     std::cout << "Программа запущена. Нажмите Ctrl+C для проверки или введите 'exit' для выхода." << std::endl;
+//     std::cout << "Программа запущена. Нажмите Ctrl+C для проверки или введите 'exit' для выхода."
+//     << std::endl;
 
 //     while (true) {
 //         std::cout << "> ";
@@ -58,16 +59,16 @@ void handle_sigint(int signal_num) {
 //                 // Здесь можно спросить, хочет ли пользователь выйти
 //                 std::cout << "Вы действительно хотите выйти? (y/n): ";
 //                 if (std::getline(std::cin, line) && (line == "y" || line == "Y")) {
-//                     std::cout << "Завершение программы по запросу пользователя после SIGINT." << std::endl;
-//                     break;
+//                     std::cout << "Завершение программы по запросу пользователя после SIGINT." <<
+//                     std::endl; break;
 //                 } else {
 //                     std::cin.clear(); // На случай, если и этот getline был прерван или неудачен
 //                     std::cout << "Продолжаем работу..." << std::endl;
 //                     continue; // Начать новую итерацию цикла ввода
 //                 }
 //             } else if (std::cin.eof()) {
-//                 std::cout << "\nEOF получен (Ctrl+D или Ctrl+Z). Завершение программы." << std::endl;
-//                 break;
+//                 std::cout << "\nEOF получен (Ctrl+D или Ctrl+Z). Завершение программы." <<
+//                 std::endl; break;
 //             } else {
 //                 // Другая ошибка ввода
 //                 std::cout << "\nОшибка ввода. Попробуйте еще раз." << std::endl;
@@ -94,8 +95,8 @@ void handle_sigint(int signal_num) {
 //             // В сложных приложениях может потребоваться более хитрая логика,
 //             // например, временное игнорирование SIGINT на время этого запроса.
 //             if (std::getline(std::cin, line) && (line == "y" || line == "Y")) {
-//                 std::cout << "Завершение программы по запросу пользователя после SIGINT." << std::endl;
-//                 break;
+//                 std::cout << "Завершение программы по запросу пользователя после SIGINT." <<
+//                 std::endl; break;
 //             } else {
 //                 std::cin.clear();
 //                 std::cout << "Продолжаем работу..." << std::endl;

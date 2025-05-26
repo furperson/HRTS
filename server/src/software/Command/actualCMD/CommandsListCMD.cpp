@@ -32,9 +32,10 @@ void CommandsListCMD::AttachContext(const Context& context) {
     this->scenarioStore = &(tmpContext.scenarioStore);
 }
 
-CommandsListContext::CommandsListContext(IOunit& iounit,std::vector<Scenario>& scen):iounit(iounit),scenarioStore(scen) {
-    
-};
+CommandsListContext::CommandsListContext(IOunit& iounit, std::vector<Scenario>& scen)
+    : iounit(iounit), scenarioStore(scen) {
+
+      };
 
 CommandsListCMD::~CommandsListCMD() {};
 

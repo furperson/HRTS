@@ -1,18 +1,18 @@
 #pragma once
 
 #include "Command/Command.hpp"
+#include "HwUnit/HwUnit.hpp"
 #include "IOunit/IOunit.hpp"
 #include "Scenario.hpp"
-#include "HwUnit/HwUnit.hpp"
-#include <memory> 
 
+#include <memory>
 #include <vector>
 
 class StartTaskCMD : public Command {
   private:
     /* data */
-    IOunit* iounit  = nullptr;
-    HwUnit* hwunit =nullptr;
+    IOunit* iounit = nullptr;
+    HwUnit* hwunit = nullptr;
     std::vector<Task>* taskStore = nullptr;
 
   public:
@@ -23,14 +23,14 @@ class StartTaskCMD : public Command {
 
     void Execute(ParsedCMD&) override;
     StartTaskCMD() = default;
-    ~StartTaskCMD() override ;
+    ~StartTaskCMD() override;
 };
 
 struct StartTaskContext : public Context {
-    StartTaskContext(IOunit&,HwUnit&,std::vector<Task>&);
+    StartTaskContext(IOunit&, HwUnit&, std::vector<Task>&);
     IOunit& iounit;
     HwUnit& hwunit;
     std::vector<Task>& taskStore;
-    ~StartTaskContext() override ;
+    ~StartTaskContext() override;
     StartTaskContext() = delete;
 };

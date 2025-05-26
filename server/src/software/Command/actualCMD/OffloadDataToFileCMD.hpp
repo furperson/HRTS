@@ -3,8 +3,8 @@
 #include "Command/Command.hpp"
 #include "IOunit/IOunit.hpp"
 #include "Scenario.hpp"
-#include <memory> 
 
+#include <memory>
 #include <vector>
 
 class Server;
@@ -13,9 +13,9 @@ class PersistenceManager;
 class OffloadDataToFileCMD : public Command {
   private:
     /* data */
-    IOunit* iounit  = nullptr;
+    IOunit* iounit = nullptr;
     Server* server = nullptr;
-    PersistenceManager* meng  = nullptr;
+    PersistenceManager* meng = nullptr;
 
   public:
     std::string getTitle() override;
@@ -25,14 +25,14 @@ class OffloadDataToFileCMD : public Command {
 
     void Execute(ParsedCMD&) override;
     OffloadDataToFileCMD() = default;
-    ~OffloadDataToFileCMD() override ;
+    ~OffloadDataToFileCMD() override;
 };
 
 struct OffloadDataToFileContext : public Context {
-    OffloadDataToFileContext(IOunit&,Server&,PersistenceManager&);
+    OffloadDataToFileContext(IOunit&, Server&, PersistenceManager&);
     IOunit& iounit;
     Server& server;
     PersistenceManager& meng;
-    ~OffloadDataToFileContext() override ;
+    ~OffloadDataToFileContext() override;
     OffloadDataToFileContext() = delete;
 };

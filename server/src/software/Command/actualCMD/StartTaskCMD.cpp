@@ -2,8 +2,7 @@
 
 void StartTaskCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
-        auto it = std::find_if(taskStore->begin(), taskStore->end(),
-        [&cmd](const Task& element) {
+        auto it = std::find_if(taskStore->begin(), taskStore->end(), [&cmd](const Task& element) {
             return element.getScenario().getScenarioName() == cmd.args[0];
         });
         if (it != taskStore->end()) {
@@ -29,12 +28,12 @@ void StartTaskCMD::AttachContext(const Context& context) {
     this->iounit = &(tmpContext.iounit);
     this->hwunit = &(tmpContext.hwunit);
     this->taskStore = &(tmpContext.taskStore);
-
 }
 
-StartTaskContext::StartTaskContext(IOunit& iounit,HwUnit& hwunit,std::vector<Task>& task):iounit(iounit),hwunit(hwunit),taskStore(task) {
-    
-};
+StartTaskContext::StartTaskContext(IOunit& iounit, HwUnit& hwunit, std::vector<Task>& task)
+    : iounit(iounit), hwunit(hwunit), taskStore(task) {
+
+      };
 
 StartTaskCMD::~StartTaskCMD() {};
 

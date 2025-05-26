@@ -2,13 +2,11 @@
 
 #include <queue>
 
-/*данный класс распределяет Задания из очереди на 
+/*данный класс распределяет Задания из очереди на
 BoardsWrapper*/
-class HwOrbitor
-{
-private:
-    
-public:
+class HwOrbitor {
+  private:
+  public:
     HwOrbitor() = default;
     ~HwOrbitor() = default;
 };

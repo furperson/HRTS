@@ -1,21 +1,20 @@
 #pragma once
 
-#include <iostream> 
-#include <vector>
-#include <string>
 #include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
 
+// - получает input/output поток данных и реализует логику работы с ним
 
-// - получает input/output поток данных и реализует логику работы с ним 
-
-class IOunit
-{
-private:
+class IOunit {
+  private:
     std::vector<std::istream*> INstreams;
-    std::vector<std::ostream*> OUTstreams; 
-public:
-    bool addIStream (std::istream&);
-    bool addOStream (std::ostream&);
+    std::vector<std::ostream*> OUTstreams;
+
+  public:
+    bool addIStream(std::istream&);
+    bool addOStream(std::ostream&);
 
     void write(std::string);
     std::ostream popOUTstream();
@@ -24,16 +23,14 @@ public:
     std::istream popINstream();
 };
 
-
-class BadIStream_error : public std::exception
-{
-    public:
-    BadIStream_error(const std::string& message): message{message}
-    {}
-    const char* what() const noexcept override
-    {
-        return message.c_str();    
+class BadIStream_error : public std::exception {
+  public:
+    BadIStream_error(const std::string& message) : message{message} {
     }
-private:
-    std::string message;    
+    const char* what() const noexcept override {
+        return message.c_str();
+    }
+
+  private:
+    std::string message;
 };

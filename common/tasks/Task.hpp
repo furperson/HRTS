@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include "BitArtif.hpp"
 #include "Scenario.hpp"

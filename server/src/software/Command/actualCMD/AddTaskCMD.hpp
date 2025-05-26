@@ -8,7 +8,7 @@
 class AddTaskCMD : public Command {
   private:
     /* data */
-    IOunit* iounit  = nullptr;
+    IOunit* iounit = nullptr;
     std::vector<Scenario>* scenarioStore = nullptr;
     std::vector<Task>* taskStore = nullptr;
 
@@ -20,14 +20,14 @@ class AddTaskCMD : public Command {
 
     void Execute(ParsedCMD&) override;
     AddTaskCMD() = default;
-    ~AddTaskCMD() override ;
+    ~AddTaskCMD() override;
 };
 
 struct AddTaskContext : public Context {
-    AddTaskContext(IOunit&,std::vector<Scenario>&,std::vector<Task>&);
+    AddTaskContext(IOunit&, std::vector<Scenario>&, std::vector<Task>&);
     IOunit& iounit;
     std::vector<Scenario>& scenarioStore;
     std::vector<Task>& taskStore;
-    ~AddTaskContext() override ;
+    ~AddTaskContext() override;
     AddTaskContext() = delete;
 };

@@ -1,23 +1,22 @@
 #pragma once
 
+#include "Command/Command.hpp"
+#include "PreParser.hpp"
+
+#include <functional>
 #include <iostream>
 #include <map>
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
 
-#include "PreParser.hpp"
-#include "Command/Command.hpp"
-#include <functional>
+class Interpretator {
+  private:
+    std::unordered_map<std::string, Command*> commands;
 
-
-class Interpretator
-{
-private:
-std::unordered_map<std::string,Command*> commands;
-public:
-    void processCMD (ParsedCMD&);
+  public:
+    void processCMD(ParsedCMD&);
     void addCMD(Command&);
-    
+
     Interpretator() = default;
     ~Interpretator() = default;
 };

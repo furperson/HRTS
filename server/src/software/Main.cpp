@@ -2,10 +2,8 @@
 
 using json = nlohmann::json;
 
-int main (int argc, char* argv[]) {
+int main(int argc, char* argv[]) {
     Server server;
-
-    
 
     /*тестовые данные*/
     std::string scenarioName1 = "Full_Scan_Test";
@@ -22,72 +20,51 @@ int main (int argc, char* argv[]) {
     pinNaming1.emplace_back("ADDR_BUS", std::vector<int>{16, 17, 18, 19, 20}, false);
     pinNaming1.emplace_back("CONTROL_SIG", std::vector<int>{60, 61, 62}, true);
 
-    Scenario scenario1(
-        scenarioName1,
-        testDurationMs1,
-        stopScenarioPin1,
-        fpgaFirmwareName1,
-        pinScanEnable1,
-        pinNaming1
-    );
+    Scenario scenario1(scenarioName1, testDurationMs1, stopScenarioPin1, fpgaFirmwareName1,
+                       pinScanEnable1, pinNaming1);
 
     // --- Создание второго тестового сценария ---
     std::string scenarioName2 = "Partial_I2C_Test";
     int testDurationMs2 = 5000; // 5 секунд
-    int stopScenarioPin2 = -1;  
+    int stopScenarioPin2 = -1;
 
     std::string fpgaFirmwareName2 = "i2c_tester_fw_alpha.bin";
 
     std::array<bool, 64> pinScanEnable2{}; // Инициализация всех false
-    pinScanEnable2[10] = true; // SCL
-    pinScanEnable2[11] = true; // SDA
-    pinScanEnable2[0] = true;  
+    pinScanEnable2[10] = true;             // SCL
+    pinScanEnable2[11] = true;             // SDA
+    pinScanEnable2[0] = true;
 
     std::vector<PinBusGroup> pinNaming2;
     pinNaming2.emplace_back("I2C1_SCL", std::vector<int>{10}, true); // Один пин в группе
     pinNaming2.emplace_back("I2C1_SDA", std::vector<int>{11}, true);
 
+    Scenario scenario2(scenarioName2, testDurationMs2, stopScenarioPin2, fpgaFirmwareName2,
+                       pinScanEnable2, pinNaming2);
 
-    Scenario scenario2(
-        scenarioName2,
-        testDurationMs2,
-        stopScenarioPin2,
-        fpgaFirmwareName2,
-        pinScanEnable2,
-        pinNaming2
-    );
- 
     scenario2.addPinBusGroup(PinBusGroup("DEBUG_ACTIVITY", {0}));
 
-     // 3. Create Task 1 object
-     Task task1(scenario1);
-     // Optionally set other Task properties
-     task1.setProcessingStartTime(std::time(nullptr)); // Set start time to now
- 
+    // 3. Create Task 1 object
+    Task task1(scenario1);
+    // Optionally set other Task properties
+    task1.setProcessingStartTime(std::time(nullptr)); // Set start time to now
 
     // server.scenarioStore.push_back(scenario2);
     // server.scenarioStore.push_back(scenario1);
     // server.taskStore.push_back(task1);
 
-
-
-
-    server.startServer(argc,argv);
-
+    server.startServer(argc, argv);
 }
 
 // int main (int argc, char* argv[]) {
 //     // Устанавливаем обработчик для SIGINT
 //     // signal(SIGINT, handle_sigint);
 //     std::cout <<"POLLL";
-     
+
 //     std::string str;
 //     std::getline(std::cin, str);
 //     ParsedCMD pr = PreParse(str);
 //     for (; !pr.args.empty(); pr.args.pop_back())
 //         std::cout << pr.args.back() << std::endl;
-    
-    
-    
-// }
 
+// }

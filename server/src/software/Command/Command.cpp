@@ -1,5 +1,5 @@
 #include "Command/Command.hpp"
 
-Command::~Command(){};
+Command::~Command() {};
 
-Context::~Context(){};
+Context::~Context() {};

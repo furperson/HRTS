@@ -32,9 +32,10 @@ void PrintScenarioCMD::AttachContext(const Context& context) {
     this->scenarioStore = &(tmpContext.scenarioStore);
 }
 
-PrntScenContext::PrntScenContext(IOunit& iounit,std::vector<Scenario>& scen):iounit(iounit),scenarioStore(scen) {
-    
-};
+PrntScenContext::PrntScenContext(IOunit& iounit, std::vector<Scenario>& scen)
+    : iounit(iounit), scenarioStore(scen) {
+
+      };
 
 PrintScenarioCMD::~PrintScenarioCMD() {};
 

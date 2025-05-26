@@ -1,19 +1,17 @@
 #pragma once
 
-//обёртка , абстракция над физическим устройством(плате fpga)
+// обёртка , абстракция над физическим устройством(плате fpga)
 
+enum class BoardState { IDLE, IN_WORK, DISABLED };
 
-enum class BoardState {IDLE,IN_WORK,DISABLED};
-
-class BoardWrapper
-{
-private:
+class BoardWrapper {
+  private:
     BoardState boardState;
     int port;
-    //PLACEHOLDER 
+    // PLACEHOLDER
 
-public:
-    BoardWrapper()=delete;
+  public:
+    BoardWrapper() = delete;
     BoardWrapper(int);
     ~BoardWrapper();
 };
