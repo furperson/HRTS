@@ -1,17 +1,16 @@
-#pragma once
-
 #include "Command/Command.hpp"
 #include "IOunit/IOunit.hpp"
 #include "Scenario.hpp"
-#include <memory> 
+#include "Task.hpp"
 
 #include <vector>
 
-class PrintScenarioCMD : public Command {
+class AddTaskCMD : public Command {
   private:
     /* data */
     IOunit* iounit  = nullptr;
     std::vector<Scenario>* scenarioStore = nullptr;
+    std::vector<Task>* taskStore = nullptr;
 
   public:
     std::string getTitle() override;
@@ -20,14 +19,15 @@ class PrintScenarioCMD : public Command {
     void AttachContext(const Context&) override;
 
     void Execute(ParsedCMD&) override;
-    PrintScenarioCMD() = default;
-    ~PrintScenarioCMD() override ;
+    AddTaskCMD() = default;
+    ~AddTaskCMD() override ;
 };
 
-struct PrntScenContext : public Context {
-    PrntScenContext(IOunit&,std::vector<Scenario>&);
+struct AddTaskContext : public Context {
+    AddTaskContext(IOunit&,std::vector<Scenario>&,std::vector<Task>&);
     IOunit& iounit;
     std::vector<Scenario>& scenarioStore;
-    ~PrntScenContext() override ;
-    PrntScenContext() = delete;
+    std::vector<Task>& taskStore;
+    ~AddTaskContext() override ;
+    AddTaskContext() = delete;
 };

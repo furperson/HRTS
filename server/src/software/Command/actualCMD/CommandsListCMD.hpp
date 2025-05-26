@@ -7,7 +7,7 @@
 
 #include <vector>
 
-class PrintScenarioCMD : public Command {
+class CommandsListCMD : public Command {
   private:
     /* data */
     IOunit* iounit  = nullptr;
@@ -20,14 +20,14 @@ class PrintScenarioCMD : public Command {
     void AttachContext(const Context&) override;
 
     void Execute(ParsedCMD&) override;
-    PrintScenarioCMD() = default;
-    ~PrintScenarioCMD() override ;
+    CommandsListCMD() = default;
+    ~CommandsListCMD() override ;
 };
 
-struct PrntScenContext : public Context {
-    PrntScenContext(IOunit&,std::vector<Scenario>&);
+struct CommandsListContext : public Context {
+    CommandsListContext(IOunit&,std::vector<Scenario>&);
     IOunit& iounit;
     std::vector<Scenario>& scenarioStore;
-    ~PrntScenContext() override ;
-    PrntScenContext() = delete;
+    ~CommandsListContext() override ;
+    CommandsListContext() = delete;
 };

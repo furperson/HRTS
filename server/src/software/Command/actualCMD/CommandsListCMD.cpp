@@ -1,6 +1,6 @@
-#include "Command/actualCMD/PrintScenarioCMD.hpp"
+#include "Command/actualCMD/CommandsListCMD.hpp"
 
-void PrintScenarioCMD::Execute(ParsedCMD& cmd) {
+void CommandsListCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
         if (!(iounit == nullptr)) {
             auto it = std::find_if(scenarioStore->begin(), scenarioStore->end(),
@@ -16,26 +16,26 @@ void PrintScenarioCMD::Execute(ParsedCMD& cmd) {
     }
 }
 
-void PrintScenarioCMD::getHelp() {
+void CommandsListCMD::getHelp() {
     if (!(iounit == nullptr)) {
         iounit->write("Печатает всю инфу про сценарий \n");
     }
 }
 
-std::string PrintScenarioCMD::getTitle() {
+std::string CommandsListCMD::getTitle() {
     return "PrintScenario";
 }
 
-void PrintScenarioCMD::AttachContext(const Context& context) {
-    auto& tmpContext = dynamic_cast<const PrntScenContext&>(context);
+void CommandsListCMD::AttachContext(const Context& context) {
+    auto& tmpContext = dynamic_cast<const CommandsListContext&>(context);
     this->iounit = &(tmpContext.iounit);
     this->scenarioStore = &(tmpContext.scenarioStore);
 }
 
-PrntScenContext::PrntScenContext(IOunit& iounit,std::vector<Scenario>& scen):iounit(iounit),scenarioStore(scen) {
+CommandsListContext::CommandsListContext(IOunit& iounit,std::vector<Scenario>& scen):iounit(iounit),scenarioStore(scen) {
     
 };
 
-PrintScenarioCMD::~PrintScenarioCMD() {};
+CommandsListCMD::~CommandsListCMD() {};
 
-PrntScenContext::~PrntScenContext() {};
+CommandsListContext::~CommandsListContext() {};

@@ -9,6 +9,6 @@ class HwOrbitor
 private:
     
 public:
-    HwOrbitor(/* args */);
-    ~HwOrbitor();
+    HwOrbitor() = default;
+    ~HwOrbitor() = default;
 };
