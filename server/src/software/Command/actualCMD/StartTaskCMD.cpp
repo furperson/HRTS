@@ -1,4 +1,4 @@
-#include "Command/actualCMD/StartTaskCMD.hpp"
+#include "Command/actualCMD/headers/StartTaskCMD.hpp"
 
 void StartTaskCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
@@ -11,16 +11,6 @@ void StartTaskCMD::Execute(ParsedCMD& cmd) {
             iounit->write("Задание не найдено \n");
         }
     }
-}
-
-void StartTaskCMD::getHelp() {
-    if (!(iounit == nullptr)) {
-        iounit->write("выполняет задачу \n");
-    }
-}
-
-std::string StartTaskCMD::getTitle() {
-    return "StartTask";
 }
 
 void StartTaskCMD::AttachContext(const Context& context) {

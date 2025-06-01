@@ -21,3 +21,11 @@ target_link_libraries(HRTS
         common_mylibs    # Из ../common
         nlohmann_json::nlohmann_json
 )
+
+add_custom_target(
+        clangformat
+        COMMAND clang-format
+        -style=file:${CMAKE_CURRENT_SOURCE_DIR}/../.clang-format
+        -i
+        ${APP_SOURCES}
+)

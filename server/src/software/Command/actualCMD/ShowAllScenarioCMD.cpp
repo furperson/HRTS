@@ -1,4 +1,4 @@
-#include "Command/actualCMD/ShowAllScenarioCMD.hpp"
+#include "Command/actualCMD/headers/ShowAllScenarioCMD.hpp"
 
 void ShowAllScenarioCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 0) {
@@ -8,16 +8,6 @@ void ShowAllScenarioCMD::Execute(ParsedCMD& cmd) {
             }
         }
     }
-}
-
-void ShowAllScenarioCMD::getHelp() {
-    if (!(iounit == nullptr)) {
-        iounit->write("показывает все сценарии \n");
-    }
-}
-
-std::string ShowAllScenarioCMD::getTitle() {
-    return "ShowAllScenario";
 }
 
 void ShowAllScenarioCMD::AttachContext(const Context& context) {

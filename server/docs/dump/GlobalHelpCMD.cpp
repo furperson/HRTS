@@ -1,4 +1,4 @@
-#include "Command/actualCMD/GlobalHelpCMD.hpp"
+#include "Command/actualCMD/headers/GlobalHelpCMD.hpp"
 
 void GlobalHelpCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 1) {

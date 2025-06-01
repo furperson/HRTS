@@ -1,4 +1,4 @@
-#include "Command/actualCMD/CommandsListCMD.hpp"
+#include "Command/actualCMD/headers/CommandsListCMD.hpp"
 
 void CommandsListCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
@@ -16,15 +16,7 @@ void CommandsListCMD::Execute(ParsedCMD& cmd) {
     }
 }
 
-void CommandsListCMD::getHelp() {
-    if (!(iounit == nullptr)) {
-        iounit->write("Печатает всю инфу про сценарий \n");
-    }
-}
 
-std::string CommandsListCMD::getTitle() {
-    return "PrintScenario";
-}
 
 void CommandsListCMD::AttachContext(const Context& context) {
     auto& tmpContext = dynamic_cast<const CommandsListContext&>(context);

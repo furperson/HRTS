@@ -1,4 +1,4 @@
-#include "Command/actualCMD/PrintScenarioCMD.hpp"
+#include "Command/actualCMD/headers/PrintScenarioCMD.hpp"
 
 void PrintScenarioCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
@@ -14,16 +14,6 @@ void PrintScenarioCMD::Execute(ParsedCMD& cmd) {
             }
         }
     }
-}
-
-void PrintScenarioCMD::getHelp() {
-    if (!(iounit == nullptr)) {
-        iounit->write("Печатает всю инфу про сценарий \n");
-    }
-}
-
-std::string PrintScenarioCMD::getTitle() {
-    return "PrintScenario";
 }
 
 void PrintScenarioCMD::AttachContext(const Context& context) {

@@ -1,6 +1,7 @@
 #include "Server/Server.hpp"
 
 void Server::startServer(int argc, char* argv[]) {
+
     serverRunning = true;
 
     AddTaskCMD addTaskCMD;
@@ -38,10 +39,19 @@ void Server::startServer(int argc, char* argv[]) {
 
     while (serverRunning) {
         try {
-            ParsedCMD tmpCMD = PreParse(ioUnit.readLine());
-            interpetator.processCMD(tmpCMD);
+            auto tmpCMD = PreParse(ioUnit.readLine());
+            if(tmpCMD){
+                interpetator.processCMD(*tmpCMD);
+            }
+            else {
+                ioUnit.write("Ошибка в команде : "+tmpCMD.error());
+            }
         } catch (const std::exception& e) {
             std::cerr << "Error while processing command: " << e.what() << std::endl;
         }
     }
+}
+
+Server::Server()
+    : ioUnit(), hwUnit(), persistenceManager(), interpetator(ioUnit), serverRunning(false) {
 }

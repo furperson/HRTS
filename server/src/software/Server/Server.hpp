@@ -7,13 +7,13 @@
 #include <string>
 #include <vector>
 // #include "SIGINThandle.cpp"
-#include "Command/actualCMD/AddTaskCMD.hpp"
-#include "Command/actualCMD/LoadDataFromFileCMD.hpp"
-#include "Command/actualCMD/OffloadDataToFileCMD.hpp"
-#include "Command/actualCMD/PrintScenarioCMD.hpp"
-#include "Command/actualCMD/ShowAllScenarioCMD.hpp"
-#include "Command/actualCMD/ShowAllTask.hpp"
-#include "Command/actualCMD/StartTaskCMD.hpp"
+#include "Command/actualCMD/headers/AddTaskCMD.hpp"
+#include "Command/actualCMD/headers/LoadDataFromFileCMD.hpp"
+#include "Command/actualCMD/headers/OffloadDataToFileCMD.hpp"
+#include "Command/actualCMD/headers/PrintScenarioCMD.hpp"
+#include "Command/actualCMD/headers/ShowAllScenarioCMD.hpp"
+#include "Command/actualCMD/headers/ShowAllTask.hpp"
+#include "Command/actualCMD/headers/StartTaskCMD.hpp"
 #include "HwUnit/HwUnit.hpp"
 #include "IOunit/IOunit.hpp"
 #include "Interpretator/Interpretator.hpp"
@@ -28,16 +28,16 @@ class Server {
 
     std::vector<Task> taskStore;
     std::vector<Scenario> scenarioStore;
-    HwUnit hwUnit;
     IOunit ioUnit;
-    Interpretator interpetator;
+    HwUnit hwUnit;
     PersistenceManager persistenceManager;
+    Interpretator interpetator;
     bool serverRunning;
 
   public:
     // запуск сервера
     void startServer(int argc, char* argv[]);
 
-    Server() = default;
+    Server();
     ~Server() = default;
 };

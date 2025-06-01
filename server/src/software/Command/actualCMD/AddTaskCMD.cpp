@@ -1,4 +1,4 @@
-#include "Command/actualCMD/AddTaskCMD.hpp"
+#include "Command/actualCMD/headers/AddTaskCMD.hpp"
 
 void AddTaskCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
@@ -18,15 +18,6 @@ void AddTaskCMD::Execute(ParsedCMD& cmd) {
     }
 }
 
-void AddTaskCMD::getHelp() {
-    if (!(iounit == nullptr)) {
-        iounit->write("Создаёт из сценария задание :  \n AddTask имя_сценария ");
-    }
-}
-
-std::string AddTaskCMD::getTitle() {
-    return "AddTask";
-}
 
 void AddTaskCMD::AttachContext(const Context& context) {
     auto& tmpContext = dynamic_cast<const AddTaskContext&>(context);

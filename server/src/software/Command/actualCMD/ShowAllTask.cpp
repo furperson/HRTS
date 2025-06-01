@@ -1,4 +1,4 @@
-#include "Command/actualCMD/ShowAllTask.hpp"
+#include "Command/actualCMD/headers/ShowAllTask.hpp"
 
 void ShowAllTask::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.args.size() == 0) {
@@ -10,16 +10,6 @@ void ShowAllTask::Execute(ParsedCMD& cmd) {
             }
         }
     }
-}
-
-void ShowAllTask::getHelp() {
-    if (!(iounit == nullptr)) {
-        iounit->write("показывает все задачи \n");
-    }
-}
-
-std::string ShowAllTask::getTitle() {
-    return "ShowAllTaslk";
 }
 
 void ShowAllTask::AttachContext(const Context& context) {

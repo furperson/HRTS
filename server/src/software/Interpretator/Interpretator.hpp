@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Command/Command.hpp"
+#include "IOunit/IOunit.hpp"
 #include "PreParser.hpp"
 
 #include <functional>
@@ -11,12 +12,14 @@
 
 class Interpretator {
   private:
+    IOunit* iounit;
     std::unordered_map<std::string, Command*> commands;
 
   public:
     void processCMD(ParsedCMD&);
     void addCMD(Command&);
 
-    Interpretator() = default;
+    Interpretator() = delete;
+    explicit Interpretator(IOunit&);
     ~Interpretator() = default;
 };

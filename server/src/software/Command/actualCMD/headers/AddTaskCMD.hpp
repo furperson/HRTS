@@ -7,14 +7,14 @@
 
 class AddTaskCMD : public Command {
   private:
+    std::string CMDtitle="add-task";
+    std::string CMDhelp="Создаёт из сценария задание :  \n AddTask <имя_сценария>"; 
     /* data */
     IOunit* iounit = nullptr;
     std::vector<Scenario>* scenarioStore = nullptr;
     std::vector<Task>* taskStore = nullptr;
 
   public:
-    std::string getTitle() override;
-    void getHelp() override;
 
     void AttachContext(const Context&) override;
 

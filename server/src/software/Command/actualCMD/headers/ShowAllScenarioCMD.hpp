@@ -4,7 +4,7 @@
 #include "IOunit/IOunit.hpp"
 #include "Scenario.hpp"
 
-#include <memory>
+// #include <memory>
 #include <vector>
 
 class ShowAllScenarioCMD : public Command {
@@ -14,8 +14,6 @@ class ShowAllScenarioCMD : public Command {
     std::vector<Scenario>* scenarioStore = nullptr;
 
   public:
-    std::string getTitle() override;
-    void getHelp() override;
 
     void AttachContext(const Context&) override;
 

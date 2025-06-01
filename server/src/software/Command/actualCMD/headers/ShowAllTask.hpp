@@ -22,8 +22,6 @@ class ShowAllTask : public Command {
                                                       {TaskState::FAILED, "FAILED"}};
 
   public:
-    std::string getTitle() override;
-    void getHelp() override;
 
     void AttachContext(const Context&) override;
 

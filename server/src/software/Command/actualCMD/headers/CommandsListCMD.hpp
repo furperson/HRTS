@@ -14,9 +14,6 @@ class CommandsListCMD : public Command {
     std::vector<Scenario>* scenarioStore = nullptr;
 
   public:
-    std::string getTitle() override;
-    void getHelp() override;
-
     void AttachContext(const Context&) override;
 
     void Execute(ParsedCMD&) override;

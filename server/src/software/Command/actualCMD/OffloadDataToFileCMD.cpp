@@ -1,4 +1,4 @@
-#include "Command/actualCMD/OffloadDataToFileCMD.hpp"
+#include "Command/actualCMD/headers/OffloadDataToFileCMD.hpp"
 
 #include "PersistenceManager/PersistenceManager.hpp"
 #include "Server/Server.hpp"
@@ -9,16 +9,6 @@ void OffloadDataToFileCMD::Execute(ParsedCMD& cmd) {
             meng->Offload(*server, cmd.args[0]);
         }
     }
-}
-
-void OffloadDataToFileCMD::getHelp() {
-    if (!(iounit == nullptr)) {
-        iounit->write("Сохраняет данные контейнеров в файл \n");
-    }
-}
-
-std::string OffloadDataToFileCMD::getTitle() {
-    return "OffloadDataToFile";
 }
 
 void OffloadDataToFileCMD::AttachContext(const Context& context) {

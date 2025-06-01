@@ -11,9 +11,12 @@ struct Context {
 
 // Комманды совершают действие над
 class Command {
+  private:
+  std::string CMDtitle;
+  std::string CMDhelp;
   public:
-    virtual std::string getTitle() = 0;
-    virtual void getHelp() = 0;
+    virtual std::string getTitle();
+    virtual std::string getHelp();
 
     virtual void Execute(ParsedCMD&) = 0;
 

@@ -10,7 +10,7 @@
 class Server;
 class PersistenceManager;
 
-class OffloadDataToFileCMD : public Command {
+class LoadDataFromFileCMD : public Command {
   private:
     /* data */
     IOunit* iounit = nullptr;
@@ -18,21 +18,19 @@ class OffloadDataToFileCMD : public Command {
     PersistenceManager* meng = nullptr;
 
   public:
-    std::string getTitle() override;
-    void getHelp() override;
 
     void AttachContext(const Context&) override;
 
     void Execute(ParsedCMD&) override;
-    OffloadDataToFileCMD() = default;
-    ~OffloadDataToFileCMD() override;
+    LoadDataFromFileCMD() = default;
+    ~LoadDataFromFileCMD() override;
 };
 
-struct OffloadDataToFileContext : public Context {
-    OffloadDataToFileContext(IOunit&, Server&, PersistenceManager&);
+struct LoadDataToFileContext : public Context {
+    LoadDataToFileContext(IOunit&, Server&, PersistenceManager&);
     IOunit& iounit;
     Server& server;
     PersistenceManager& meng;
-    ~OffloadDataToFileContext() override;
-    OffloadDataToFileContext() = delete;
+    ~LoadDataToFileContext() override;
+    LoadDataToFileContext() = delete;
 };

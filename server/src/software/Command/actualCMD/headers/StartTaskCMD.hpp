@@ -10,14 +10,14 @@
 
 class StartTaskCMD : public Command {
   private:
+  std::string CMDtitle="start-task";
+  std::string CMDhelp="Отправляет задание на выполнение \n "+CMDtitle+" <Task-name>";
     /* data */
     IOunit* iounit = nullptr;
     HwUnit* hwunit = nullptr;
     std::vector<Task>* taskStore = nullptr;
 
   public:
-    std::string getTitle() override;
-    void getHelp() override;
 
     void AttachContext(const Context&) override;
 

@@ -1,4 +1,4 @@
-#include "Command/actualCMD/LoadDataFromFileCMD.hpp"
+#include "Command/actualCMD/headers/LoadDataFromFileCMD.hpp"
 
 #include "PersistenceManager/PersistenceManager.hpp"
 #include "Server/Server.hpp"
@@ -11,15 +11,6 @@ void LoadDataFromFileCMD::Execute(ParsedCMD& cmd) {
     }
 }
 
-void LoadDataFromFileCMD::getHelp() {
-    if (!(iounit == nullptr)) {
-        iounit->write("загружает все данные из файла \n");
-    }
-}
-
-std::string LoadDataFromFileCMD::getTitle() {
-    return "LoadDataFromFile";
-}
 
 void LoadDataFromFileCMD::AttachContext(const Context& context) {
     auto& tmpContext = dynamic_cast<const LoadDataToFileContext&>(context);
