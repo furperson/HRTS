@@ -1,9 +1,9 @@
 #include "Command/actualCMD/headers/StartTaskCMD.hpp"
 
 void StartTaskCMD::Execute(ParsedCMD& cmd) {
-    if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
+    if (cmd.title == this->getTitle() && cmd.otherArgs.size() == 1) {
         auto it = std::find_if(taskStore->begin(), taskStore->end(), [&cmd](const Task& element) {
-            return element.getScenario().getScenarioName() == cmd.args[0];
+            return element.getScenario().getScenarioName() == cmd.otherArgs[0];
         });
         if (it != taskStore->end()) {
             hwunit->putTask(*it);

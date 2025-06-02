@@ -44,12 +44,16 @@ void Server::startServer(int argc, char* argv[]) {
                 interpetator.processCMD(*tmpCMD);
             }
             else {
-                ioUnit.write("Ошибка в команде : "+tmpCMD.error());
+                ioUnit.write("Ошибка в команде около: "+tmpCMD.error()+ "\n");
             }
         } catch (const std::exception& e) {
             std::cerr << "Error while processing command: " << e.what() << std::endl;
         }
+
+
     }
+    
+
 }
 
 Server::Server()

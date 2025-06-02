@@ -4,9 +4,9 @@
 #include "Server/Server.hpp"
 
 void LoadDataFromFileCMD::Execute(ParsedCMD& cmd) {
-    if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
+    if (cmd.title == this->getTitle() && cmd.otherArgs.size() == 1) {
         if (!(iounit == nullptr)) {
-            meng->Load(*server, cmd.args[0]);
+            meng->Load(*server, cmd.otherArgs[0]);
         }
     }
 }

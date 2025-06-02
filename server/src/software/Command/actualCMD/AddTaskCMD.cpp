@@ -1,11 +1,11 @@
 #include "Command/actualCMD/headers/AddTaskCMD.hpp"
 
 void AddTaskCMD::Execute(ParsedCMD& cmd) {
-    if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
+    if (cmd.title == this->getTitle() &&( cmd.otherArgs.size() == 1)) {
         if (!(iounit == nullptr)) {
             auto it = std::find_if(scenarioStore->begin(), scenarioStore->end(),
                                    [&cmd](const Scenario& element) {
-                                       return element.getScenarioName() == cmd.args[0];
+                                       return element.getScenarioName() == cmd.otherArgs[0];
                                    });
             if (it != scenarioStore->end()) {
                 Task tmp(*it);

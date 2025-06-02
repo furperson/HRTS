@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10) 
 project(CommonLibraries CXX)
 
+set(CMAKE_CXX_STANDARD 23)
 
 file(GLOB TASK_SOURCES
     CONFIGURE_DEPENDS

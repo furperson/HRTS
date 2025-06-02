@@ -1,7 +1,7 @@
 #include "Command/actualCMD/headers/ShowAllScenarioCMD.hpp"
 
 void ShowAllScenarioCMD::Execute(ParsedCMD& cmd) {
-    if (cmd.title == this->getTitle() && cmd.args.size() == 0) {
+    if (cmd.title == this->getTitle() && cmd.otherArgs.size() == 0) {
         if (!(iounit == nullptr)) {
             for (auto& scen : *scenarioStore) {
                 iounit->write(scen.getScenarioName() + "\n");

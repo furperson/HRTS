@@ -1,4 +1,5 @@
 #include "PreParser.hpp"
+
 #include <cctype>
 
 // ParsedCMD PreParse(const std::string str) {
@@ -19,18 +20,60 @@
 //     return temp;
 // };
 
-
-std::expected<ParsedCMD,std::string> PreParse(const std::string str) {
+std::expected<ParsedCMD, std::string> PreParse(const std::string& str) {
+    const std::string& tmpStr = str+" ";
     ParsedCMD tempPC;
-    std::string tmpTitle="";
-    std::string tmpArgs="";
-    for(const char tmpC: str){
-        if( std::isspace(tmpC) and (tmpTitle!="") ){
-            
+    bool titleFlag = true;
+    bool argsTitleFlag = true;
+    bool quotesFlag = false;
+    OptionType optionType = OptionType::OTHER;
+    std::string tmpTitle = "";
+    std::string tmpArgs = "";
+    for (const char tmpC : tmpStr) {
+        if (not quotesFlag and std::isspace(tmpC) and tmpTitle!="") {
+            if (titleFlag) {
+                tempPC.title = tmpTitle;
+                titleFlag = false;
+                tmpTitle = "";
+            } else {
+                if(tmpTitle.length()<=2)
+                    return std::unexpected(tmpTitle);
+                if(tmpTitle.substr(0,2)=="--"){
+                    if(not argsTitleFlag)
+                        return std::unexpected(tmpTitle);
+                    tempPC.secArgs.push_back(tmpTitle);
+                }
+                else if(tmpTitle[0]=='-'){
+                    if(argsTitleFlag)
+                        return std::unexpected(tmpTitle);
+                    tempPC.oneArgs[tmpTitle]=tmpArgs;
+                    
+                }
+                else {
+                    if(not argsTitleFlag)
+                        return std::unexpected(tmpTitle);
+                    tempPC.otherArgs.push_back(tmpTitle);
+                }
+                argsTitleFlag = true;
+            }
+        } else {
+            if (titleFlag) {
+                tmpTitle += tmpC;
+            } else if (argsTitleFlag) { // reading option title
+                if (tmpC == '=') {
+                    argsTitleFlag = false;
+                } else {
+                    tmpTitle += tmpC;
+                }
+            } else if (tmpC == '"') { // reading args for option
+                quotesFlag = not quotesFlag;
+            } else {
+                tmpArgs += tmpC;
+            }
         }
-        else{
-            tmpS+=tmpC;
-        }     
     }
+
+    if (quotesFlag)
+        return std::unexpected(tmpTitle);
     return tempPC;
 };

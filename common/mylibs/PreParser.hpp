@@ -15,5 +15,11 @@ struct ParsedCMD {
 
 };
 
+enum class OptionType{
+    OTHER,
+    ONE,
+    TWO,
+    ERROR
+};
 
-std::expected<ParsedCMD,std::string> PreParse(const std::string str);
+std::expected<ParsedCMD,std::string> PreParse(const std::string& str);

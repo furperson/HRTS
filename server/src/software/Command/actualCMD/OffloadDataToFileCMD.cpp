@@ -4,9 +4,9 @@
 #include "Server/Server.hpp"
 
 void OffloadDataToFileCMD::Execute(ParsedCMD& cmd) {
-    if (cmd.title == this->getTitle() && cmd.args.size() == 1) {
+    if (cmd.title == this->getTitle() && cmd.otherArgs.size() == 1) {
         if (!(iounit == nullptr)) {
-            meng->Offload(*server, cmd.args[0]);
+            meng->Offload(*server, cmd.otherArgs[0]);
         }
     }
 }
