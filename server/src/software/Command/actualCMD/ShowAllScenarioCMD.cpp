@@ -16,6 +16,10 @@ void ShowAllScenarioCMD::AttachContext(const Context& context) {
     this->scenarioStore = &(tmpContext.scenarioStore);
 }
 
+ShowAllScenarioCMD::ShowAllScenarioCMD()
+    : Command("show-scenarios",
+              "Команда show-scenarios выводит список всех сценариев \n show-scenarios") {};
+
 ShowAllContext::ShowAllContext(IOunit& iounit, std::vector<Scenario>& scen)
     : iounit(iounit), scenarioStore(scen) {
 

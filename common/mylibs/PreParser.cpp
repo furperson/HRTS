@@ -41,12 +41,12 @@ std::expected<ParsedCMD, std::string> PreParse(const std::string& str) {
                 if(tmpTitle.substr(0,2)=="--"){
                     if(not argsTitleFlag)
                         return std::unexpected(tmpTitle);
-                    tempPC.secArgs.push_back(tmpTitle);
+                    tempPC.secArgs.push_back(tmpTitle.substr(2,tmpTitle.size()-2));
                 }
                 else if(tmpTitle[0]=='-'){
                     if(argsTitleFlag)
                         return std::unexpected(tmpTitle);
-                    tempPC.oneArgs[tmpTitle]=tmpArgs;
+                    tempPC.oneArgs[tmpTitle.substr(1,tmpTitle.size()-1)]=tmpArgs;
                     
                 }
                 else {

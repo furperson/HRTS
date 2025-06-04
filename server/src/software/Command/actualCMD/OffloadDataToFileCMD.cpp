@@ -6,7 +6,7 @@
 void OffloadDataToFileCMD::Execute(ParsedCMD& cmd) {
     if (cmd.title == this->getTitle() && cmd.otherArgs.size() == 1) {
         if (!(iounit == nullptr)) {
-            meng->Offload(*server, cmd.otherArgs[0]);
+            meng->Offload(cmd.otherArgs[0]);
         }
     }
 }
@@ -17,6 +17,11 @@ void OffloadDataToFileCMD::AttachContext(const Context& context) {
     this->server = &(tmpContext.server);
     this->meng = &(tmpContext.meng);
 }
+
+OffloadDataToFileCMD::OffloadDataToFileCMD()
+    : Command(
+          "offload-file",
+          "Команда offload-file сохраняет состояние сервера в файл \n offload-file <имя_файла>") {};
 
 OffloadDataToFileContext::OffloadDataToFileContext(IOunit& iounit, Server& server,
                                                    PersistenceManager& meng)

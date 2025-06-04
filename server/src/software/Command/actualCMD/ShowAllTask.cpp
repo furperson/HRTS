@@ -18,6 +18,9 @@ void ShowAllTask::AttachContext(const Context& context) {
     this->taskStore = &(tmpContext.taskStore);
 }
 
+ShowAllTask::ShowAllTask()
+    : Command("show-all-task", "Команда show-all-task выводит все задания  \n show-all-task") {};
+
 ShowAllTaskContext::ShowAllTaskContext(IOunit& iounit, std::vector<Task>& task)
     : iounit(iounit), taskStore(task) {
 

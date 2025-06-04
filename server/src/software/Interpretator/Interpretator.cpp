@@ -17,5 +17,8 @@ void Interpretator::addCMD(Command& cmd) {
     }
 };
 
-Interpretator::Interpretator(IOunit& io_ref)
-    : iounit(&io_ref) {};
+Interpretator::Interpretator(IOunit& io_ref) : iounit(&io_ref) {};
+
+const std::unordered_map<std::string, Command*>* Interpretator::getCMDS() {
+    return &this->commands;
+}

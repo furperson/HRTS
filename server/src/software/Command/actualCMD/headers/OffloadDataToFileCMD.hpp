@@ -18,11 +18,10 @@ class OffloadDataToFileCMD : public Command {
     PersistenceManager* meng = nullptr;
 
   public:
-
     void AttachContext(const Context&) override;
 
     void Execute(ParsedCMD&) override;
-    OffloadDataToFileCMD() = default;
+    OffloadDataToFileCMD();
     ~OffloadDataToFileCMD() override;
 };
 

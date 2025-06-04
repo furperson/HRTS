@@ -22,11 +22,10 @@ class ShowAllTask : public Command {
                                                       {TaskState::FAILED, "FAILED"}};
 
   public:
-
     void AttachContext(const Context&) override;
 
     void Execute(ParsedCMD&) override;
-    ShowAllTask() = default;
+    ShowAllTask();
     ~ShowAllTask() override;
 };
 

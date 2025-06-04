@@ -19,7 +19,8 @@ template <> struct adl_serializer<Task> {
                  {"state", t.getState()},
                  {"artefact", t.getArtef()},
                  {"processingStartTime", nullptr},
-                 {"processingEndTime", nullptr}};
+                 {"processingEndTime", nullptr},
+                 {"taskName", t.getTaskName()}};
 
         time_t startTime = t.getProcessingStartTime();
         if (startTime != static_cast<time_t>(0)) {
@@ -34,11 +35,13 @@ template <> struct adl_serializer<Task> {
 
     static Task from_json(const json& j) {
         Scenario scenario = j.at("scenario").get<Scenario>();
-        Task task(scenario);
+        std::string str = j.at("taskName").get<std::string>();
+        Task task(scenario,str);
 
         task.setState(j.value("state", TaskState::IDLE));
 
         if (j.contains("artefact")) {
+            task.artef =  j.at("artefact").get<BitArtef>();
         }
 
         time_t startTime = 0;

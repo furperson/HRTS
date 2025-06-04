@@ -16,10 +16,19 @@ class Server;
 class PersistenceManager {
   private:
     /* data */
-  public:
-    void Offload(Server&, const std::string&);
-    void Load(Server&, const std::string&);
+    Server* server;
 
-    PersistenceManager() = default;
+  public:
+    void Offload(const std::string&); // выгружает весь сервер
+
+    void OffloadScen(const std::string&);
+    void OffloadTask(const std::string&);
+
+    void Load(const std::string&); // загружает весь сервер
+
+    void loadScen(const std::string&);
+    void loadTask(const std::string&);
+
+    PersistenceManager(Server&);
     ~PersistenceManager() = default;
 };

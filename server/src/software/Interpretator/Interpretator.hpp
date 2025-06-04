@@ -19,6 +19,8 @@ class Interpretator {
     void processCMD(ParsedCMD&);
     void addCMD(Command&);
 
+    const std::unordered_map<std::string, Command*>* getCMDS();
+
     Interpretator() = delete;
     explicit Interpretator(IOunit&);
     ~Interpretator() = default;

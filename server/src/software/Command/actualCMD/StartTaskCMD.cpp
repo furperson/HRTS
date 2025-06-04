@@ -20,6 +20,9 @@ void StartTaskCMD::AttachContext(const Context& context) {
     this->taskStore = &(tmpContext.taskStore);
 }
 
+StartTaskCMD::StartTaskCMD()
+    : Command("start-task", "Отправляет задание на выполнение \n start-task <Task-name>") {};
+
 StartTaskContext::StartTaskContext(IOunit& iounit, HwUnit& hwunit, std::vector<Task>& task)
     : iounit(iounit), hwunit(hwunit), taskStore(task) {
 

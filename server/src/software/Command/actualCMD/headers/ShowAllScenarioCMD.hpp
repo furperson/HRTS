@@ -14,11 +14,10 @@ class ShowAllScenarioCMD : public Command {
     std::vector<Scenario>* scenarioStore = nullptr;
 
   public:
-
     void AttachContext(const Context&) override;
 
     void Execute(ParsedCMD&) override;
-    ShowAllScenarioCMD() = default;
+    ShowAllScenarioCMD();
     ~ShowAllScenarioCMD() override;
 };
 

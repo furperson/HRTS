@@ -28,6 +28,10 @@ const Scenario& Task::getScenario() const {
     return scenario;
 };
 
-Task::Task(const Scenario& scenario) : scenario(scenario) {
+const std::string& Task::getTaskName() const {
+    return taskName;
+};
+
+Task::Task(const Scenario& scenario , const std::string& taskName) : scenario(scenario),taskName(taskName)  {
     this->state = TaskState::IDLE;
 };

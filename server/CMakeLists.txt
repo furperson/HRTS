@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(HRTS LANGUAGES CXX)
+project(HRTS_SERVER LANGUAGES CXX)
 include(FetchContent)
 
 set(CMAKE_CXX_STANDARD 23)

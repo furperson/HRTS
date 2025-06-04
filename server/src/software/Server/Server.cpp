@@ -4,14 +4,6 @@ void Server::startServer(int argc, char* argv[]) {
 
     serverRunning = true;
 
-    AddTaskCMD addTaskCMD;
-    LoadDataFromFileCMD loadDataFromFileCMD;
-    OffloadDataToFileCMD offloadDataToFileCMD;
-    PrintScenarioCMD printScenarioCMD;
-    ShowAllScenarioCMD showAllScenarioCMD;
-    ShowAllTask showAllTask;
-    StartTaskCMD startTaskCMD;
-
     addTaskCMD.AttachContext(AddTaskContext(ioUnit, scenarioStore, taskStore));
     loadDataFromFileCMD.AttachContext(LoadDataToFileContext(ioUnit, *this, persistenceManager));
     offloadDataToFileCMD.AttachContext(OffloadDataToFileContext(ioUnit, *this, persistenceManager));
@@ -19,7 +11,12 @@ void Server::startServer(int argc, char* argv[]) {
     showAllScenarioCMD.AttachContext(ShowAllContext(ioUnit, scenarioStore));
     showAllTask.AttachContext(ShowAllTaskContext(ioUnit, taskStore));
     startTaskCMD.AttachContext(StartTaskContext(ioUnit, hwUnit, taskStore));
+    allHelpCMD.AttachContext(AllHelpContext(ioUnit, interpetator));
+    exitCMD.AttachContext(ExitContext(persistenceManager));
+    scenarioMakeCMD.AttachContext(ScenarioMakeContext(ioUnit, scenarioStore));
+    doscript.AttachContext(doScriptContext(ioUnit));
 
+    interpetator.addCMD(allHelpCMD);
     interpetator.addCMD(addTaskCMD);
     interpetator.addCMD(loadDataFromFileCMD);
     interpetator.addCMD(offloadDataToFileCMD);
@@ -27,9 +24,12 @@ void Server::startServer(int argc, char* argv[]) {
     interpetator.addCMD(showAllScenarioCMD);
     interpetator.addCMD(showAllTask);
     interpetator.addCMD(startTaskCMD);
+    interpetator.addCMD(exitCMD);
+    interpetator.addCMD(scenarioMakeCMD);
+    interpetator.addCMD(doscript);
 
-    ioUnit.addIStream(std::cin);
-    ioUnit.addOStream(std::cout);
+    ioUnit.addIStream(std::shared_ptr<std::istream>(&std::cin,[](std::istream*){}));
+    ioUnit.addOStream(std::shared_ptr<std::ostream>(&std::cout,[](std::ostream*){}));
 
     // HARDWARE:
     BoardWrapper board1(52);
@@ -40,22 +40,17 @@ void Server::startServer(int argc, char* argv[]) {
     while (serverRunning) {
         try {
             auto tmpCMD = PreParse(ioUnit.readLine());
-            if(tmpCMD){
+            if (tmpCMD) {
                 interpetator.processCMD(*tmpCMD);
-            }
-            else {
-                ioUnit.write("Ошибка в команде около: "+tmpCMD.error()+ "\n");
+            } else {
+                ioUnit.write("Ошибка в команде около: " + tmpCMD.error() + "\n");
             }
         } catch (const std::exception& e) {
             std::cerr << "Error while processing command: " << e.what() << std::endl;
         }
-
-
     }
-    
-
 }
 
 Server::Server()
-    : ioUnit(), hwUnit(), persistenceManager(), interpetator(ioUnit), serverRunning(false) {
+    : ioUnit(), hwUnit(), persistenceManager(*this), interpetator(ioUnit), serverRunning(false) {
 }

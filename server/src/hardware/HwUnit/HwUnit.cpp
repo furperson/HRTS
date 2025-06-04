@@ -1,5 +1,8 @@
 #include "HwUnit/HwUnit.hpp"
 
+// std::ref(data)
+// std::thread t(update_data_for_widget,w,std::ref(data));
+
 void HwUnit::putTask(Task& task) {
     // taskQueue.push_back(task);
     // PLACEHOLDER

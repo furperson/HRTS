@@ -45,11 +45,11 @@ int main(int argc, char* argv[]) {
     scenario2.addPinBusGroup(PinBusGroup("DEBUG_ACTIVITY", {0}));
 
     // 3. Create Task 1 object
-    Task task1(scenario1);
+    Task task1(scenario1, "Task1");
     // Optionally set other Task properties
     task1.setProcessingStartTime(std::time(nullptr)); // Set start time to now
 
-    // server.scenarioStore.push_back(scenario2);
+    server.scenarioStore.push_back(scenario2);
     // server.scenarioStore.push_back(scenario1);
     // server.taskStore.push_back(task1);
 

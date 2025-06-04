@@ -1,12 +1,15 @@
 #include "Command/Command.hpp"
 
+Command::Command(std::string CMDtitle, std::string CMDhelp)
+    : CMDtitle(CMDtitle), CMDhelp(CMDhelp) {};
+
 Command::~Command() {};
 
 Context::~Context() {};
 
-std::string Command::getHelp(){
+const std::string Command::getHelp() {
     return this->CMDhelp;
 };
-std::string Command::getTitle(){
+const std::string Command::getTitle() {
     return this->CMDtitle;
 };
