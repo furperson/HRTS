@@ -3,6 +3,7 @@
 #include <array>
 #include <nlohmann/json_fwd.hpp>
 #include <vector>
+#include <nlohmann/json.hpp>
 
 // Структура для одного "сэмпла" данных
 struct Sample {

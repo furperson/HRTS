@@ -1,8 +1,8 @@
 #pragma once
 
 #include <atomic>
-#include <string>
 #include <mutex>
+#include <string>
 
 // обёртка , абстракция над физическим устройством(плате fpga)
 

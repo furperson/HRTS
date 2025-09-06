@@ -1,21 +1,24 @@
 #include "Server/Server.hpp"
 
-void Server::startServer(int argc, char* argv[]) {
+void Server::initClientHandlers(int port) {
+    if (!clientU.start_listening(port)) {
+        ioUnit.write("Сервер не подключен , работа невозможна.");
+        exit(1);
+    }
+};
 
-    serverRunning = true;
+void Server::init(int port) {
+    serverStatus.store(ServerStatus::SERVER_READY);
+    initCli();
+    initClientHandlers(port);
+    // HARDWARE:
+    BoardWrapper board1(52);
+    BoardWrapper board2(42);
+    this->hwUnit.addBoard(board1);
+    this->hwUnit.addBoard(board2);
+};
 
-    addTaskCMD.AttachContext(AddTaskContext(ioUnit, scenarioStore, taskStore));
-    loadDataFromFileCMD.AttachContext(LoadDataToFileContext(ioUnit, *this, persistenceManager));
-    offloadDataToFileCMD.AttachContext(OffloadDataToFileContext(ioUnit, *this, persistenceManager));
-    printScenarioCMD.AttachContext(PrntScenContext(ioUnit, scenarioStore));
-    showAllScenarioCMD.AttachContext(ShowAllContext(ioUnit, scenarioStore));
-    showAllTask.AttachContext(ShowAllTaskContext(ioUnit, taskStore));
-    startTaskCMD.AttachContext(StartTaskContext(ioUnit, hwUnit, taskStore));
-    allHelpCMD.AttachContext(AllHelpContext(ioUnit, interpetator));
-    exitCMD.AttachContext(ExitContext(persistenceManager));
-    scenarioMakeCMD.AttachContext(ScenarioMakeContext(ioUnit, scenarioStore));
-    doscript.AttachContext(doScriptContext(ioUnit));
-
+void Server::initCli() {
     interpetator.addCMD(allHelpCMD);
     interpetator.addCMD(addTaskCMD);
     interpetator.addCMD(loadDataFromFileCMD);
@@ -28,16 +31,21 @@ void Server::startServer(int argc, char* argv[]) {
     interpetator.addCMD(scenarioMakeCMD);
     interpetator.addCMD(doscript);
 
-    ioUnit.addIStream(std::shared_ptr<std::istream>(&std::cin,[](std::istream*){}));
-    ioUnit.addOStream(std::shared_ptr<std::ostream>(&std::cout,[](std::ostream*){}));
+    interpetator.addCMD(dbloadTaskCMD);
+    interpetator.addCMD(dboffloadTaskCMD);
+    interpetator.addCMD(dbloadScenarioCMD);
+    interpetator.addCMD(dboffloadScenarioCMD);
 
-    // HARDWARE:
-    BoardWrapper board1(52);
-    BoardWrapper board2(42);
-    this->hwUnit.addBoard(board1);
-    this->hwUnit.addBoard(board2);
+    ioUnit.addIStream(std::shared_ptr<std::istream>(&std::cin, [](std::istream*) {}));
+    ioUnit.addOStream(std::shared_ptr<std::ostream>(&std::cout, [](std::ostream*) {}));
+    // TODO unique ptr
+}
 
-    while (serverRunning) {
+void Server::startServer(int argc, char* argv[]) {
+
+    serverStatus.store(ServerStatus::SERVER_RUNNING);
+
+    while (serverStatus.load() == ServerStatus::SERVER_RUNNING) {
         try {
             auto tmpCMD = PreParse(ioUnit.readLine());
             if (tmpCMD) {
@@ -51,6 +59,17 @@ void Server::startServer(int argc, char* argv[]) {
     }
 }
 
-Server::Server()
-    : ioUnit(), hwUnit(), persistenceManager(*this), interpetator(ioUnit), serverRunning(false) {
+Server::Server(int argc, char* argv[])
+    : ioUnit(), hwUnit(), persistenceManager(*this), interpetator(ioUnit),
+      dataBaseUnit(argv[2], argv[3], argv[4], argv[5]), serverStatus(ServerStatus::SERVER_READY),
+      func(*this, taskStore, scenarioStore, ioUnit, hwUnit, persistenceManager, interpetator,
+           dataBaseUnit),
+      addTaskCMD(func, ioUnit), loadDataFromFileCMD(func, ioUnit),
+      offloadDataToFileCMD(func, ioUnit), printScenarioCMD(func, ioUnit),
+      showAllScenarioCMD(func, ioUnit), showAllTask(func, ioUnit), startTaskCMD(func, ioUnit),
+      allHelpCMD(func, ioUnit, interpetator), exitCMD(func), scenarioMakeCMD(func, ioUnit),
+      doscript(func, ioUnit), clientU(func), dbloadTaskCMD(func, scenarioStore, taskStore, ioUnit),
+      dboffloadTaskCMD(func, scenarioStore, taskStore, ioUnit),
+      dbloadScenarioCMD(func, scenarioStore, taskStore, ioUnit),
+      dboffloadScenarioCMD(func, scenarioStore, taskStore, ioUnit) {
 }

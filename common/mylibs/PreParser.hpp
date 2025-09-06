@@ -6,7 +6,7 @@
 #include <expected>
 // "some thing" - одна строка
 
-
+//TODO исправить нейминг
 struct ParsedCMD {
     std::string title;
     std::vector<std::string> otherArgs;

@@ -15,11 +15,9 @@ NLOHMANN_JSON_SERIALIZE_ENUM(TaskState, {{TaskState::IDLE, "IDLE"},
 
 template <> struct adl_serializer<Task> {
     static void to_json(json& j, const Task& t) {
-        j = json{{"scenario", t.getScenario()},
-                 {"state", t.getState()},
-                 {"artefact", t.getArtef()},
-                 {"processingStartTime", nullptr},
-                 {"processingEndTime", nullptr},
+        j = json{{"Owner_name_", t.getOwnername()}, {"scenario", t.getScenario()},
+                 {"state", t.getState()},           {"artefact", t.getArtef()},
+                 {"processingStartTime", nullptr},  {"processingEndTime", nullptr},
                  {"taskName", t.getTaskName()}};
 
         time_t startTime = t.getProcessingStartTime();
@@ -36,12 +34,13 @@ template <> struct adl_serializer<Task> {
     static Task from_json(const json& j) {
         Scenario scenario = j.at("scenario").get<Scenario>();
         std::string str = j.at("taskName").get<std::string>();
-        Task task(scenario,str);
+        std::string Owner_name_ = j.at("Owner_name_").get<std::string>();
+        Task task(scenario, str,Owner_name_);
 
         task.setState(j.value("state", TaskState::IDLE));
 
         if (j.contains("artefact")) {
-            task.artef =  j.at("artefact").get<BitArtef>();
+            task.artef = j.at("artefact").get<BitArtef>();
         }
 
         time_t startTime = 0;
@@ -60,4 +59,4 @@ template <> struct adl_serializer<Task> {
     }
 };
 
-} // namespace nlohmann
+} 

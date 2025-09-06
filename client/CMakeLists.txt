@@ -11,8 +11,4 @@ URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz)
 FetchContent_MakeAvailable(json)
 
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../common ${CMAKE_BINARY_DIR}/common_build)
-
-
-
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)

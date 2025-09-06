@@ -3,6 +3,7 @@
 PinBusGroup::PinBusGroup(const std::string& name, const std::vector<int>& p, bool lsb)
     : bus_name(name), pins(p), isLSB(lsb) {
 }
+PinBusGroup::PinBusGroup(){};
 
 //     // m_stopScenarioPin  = -1 = oотключен режим остановки по пину
 // Scenario::Scenario()
@@ -14,15 +15,19 @@ PinBusGroup::PinBusGroup(const std::string& name, const std::vector<int>& p, boo
 // Параметризованный конструктор
 Scenario::Scenario(const std::string& scenarioName, int testDurationMs, int stopScenarioPin,
                    const std::string& fpgaFirmwareName, const std::array<bool, 64>& pinScanEnable,
-                   const std::vector<PinBusGroup>& pinNaming)
+                   const std::vector<PinBusGroup>& pinNaming , std::string Owner_name_)
     : m_scenarioName(scenarioName), m_testDurationMs(testDurationMs),
       m_stopScenarioPin(stopScenarioPin), m_fpgaFirmwareName(fpgaFirmwareName),
-      m_pinScanEnable(pinScanEnable), m_pinNaming(pinNaming) {
+      m_pinScanEnable(pinScanEnable), m_pinNaming(pinNaming), Owner_name_(Owner_name_) {
 }
 
 // Геттеры
 const std::string& Scenario::getScenarioName() const {
     return m_scenarioName;
+}
+
+const std::string& Scenario::getOwnername() const{
+return Owner_name_;
 }
 
 int Scenario::getTestDurationMs() const {
@@ -45,7 +50,6 @@ bool Scenario::getPinScanEnable(size_t index) const {
     if (index < m_pinScanEnable.size()) {
         return m_pinScanEnable[index];
     }
-    // std::cerr << "Error: PinScanEnable index out of bounds." << std::endl;
     return false;
 }
 

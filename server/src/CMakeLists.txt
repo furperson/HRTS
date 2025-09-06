@@ -7,6 +7,18 @@ file(GLOB_RECURSE APP_SOURCES
 
 add_executable(HRTS_Server ${APP_SOURCES})
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBPQXX REQUIRED libpqxx)
+
+target_include_directories(HRTS_Server PRIVATE ${LIBPQXX_INCLUDE_DIRS})
+
+# 2. Указать линкеру, с какими библиотеками связываться.
+target_link_libraries(HRTS_Server PRIVATE ${LIBPQXX_LIBRARIES})
+
+target_include_directories(HRTS_Server PRIVATE
+    ${CMAKE_SOURCE_DIR}/server/src/software/InnerFunction
+)
+
 
 target_include_directories(HRTS_Server
     PRIVATE
@@ -20,6 +32,9 @@ target_link_libraries(HRTS_Server
         common_tasks   # Из ../common
         common_mylibs    # Из ../common
         nlohmann_json::nlohmann_json
+        sodium
+
+        
 )
 
 add_custom_target(

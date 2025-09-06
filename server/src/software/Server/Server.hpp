@@ -4,26 +4,31 @@
 
 #include <atomic>
 #include <iostream>
+#include <memory>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
-#include <memory>
 // #include "SIGINThandle.cpp"
-#include "Command/actualCMD/headers/AddTaskCMD.hpp"
-#include "Command/actualCMD/headers/AllHelpCMD.hpp"
-#include "Command/actualCMD/headers/ExitCMD.hpp"
-#include "Command/actualCMD/headers/LoadDataFromFileCMD.hpp"
-#include "Command/actualCMD/headers/OffloadDataToFileCMD.hpp"
-#include "Command/actualCMD/headers/PrintScenarioCMD.hpp"
-#include "Command/actualCMD/headers/ScenarioMakeCMD.hpp"
-#include "Command/actualCMD/headers/ShowAllScenarioCMD.hpp"
-#include "Command/actualCMD/headers/ShowAllTask.hpp"
-#include "Command/actualCMD/headers/StartTaskCMD.hpp"
-#include "Command/actualCMD/headers/doScript.hpp"
-
+#include "ClientUnit/ClientUnit2.hpp"
+#include "CommandCli/actualCMD/headers/AddTaskCMD.hpp"
+#include "CommandCli/actualCMD/headers/AllHelpCMD.hpp"
+#include "CommandCli/actualCMD/headers/ExitCMD.hpp"
+#include "CommandCli/actualCMD/headers/LoadDataFromFileCMD.hpp"
+#include "CommandCli/actualCMD/headers/OffloadDataToFileCMD.hpp"
+#include "CommandCli/actualCMD/headers/PrintScenarioCMD.hpp"
+#include "CommandCli/actualCMD/headers/ScenarioMakeCMD.hpp"
+#include "CommandCli/actualCMD/headers/ShowAllScenarioCMD.hpp"
+#include "CommandCli/actualCMD/headers/ShowAllTask.hpp"
+#include "CommandCli/actualCMD/headers/StartTaskCMD.hpp"
+#include "CommandCli/actualCMD/headers/dbLoadScenarioCMD.hpp"
+#include "CommandCli/actualCMD/headers/dbLoadTaskCMD.hpp"
+#include "CommandCli/actualCMD/headers/dbOffloadScenarioCMD.hpp"
+#include "CommandCli/actualCMD/headers/dbOffloadTaskCMD.hpp"
+#include "CommandCli/actualCMD/headers/doScript.hpp"
 #include "HwUnit/HwUnit.hpp"
 #include "IOunit/IOunit.hpp"
-#include "Interpretator/Interpretator.hpp"
+#include "InnerFunction/InnerFunction.hpp"
+#include "InterpretatorCli/Interpretator.hpp"
 #include "PersistenceManager/PersistenceManager.hpp"
 #include "Scenario.hpp"
 #include "Task.hpp"
@@ -31,7 +36,8 @@
 class Server {
   private:
     friend PersistenceManager;
-    friend int main(int argc, char* argv[]); // для тестов
+
+    enum class ServerStatus { SERVER_RUNNING, SERVER_READY, SERVER_STOP };
 
     std::vector<Task> taskStore;
     std::vector<Scenario> scenarioStore;
@@ -39,7 +45,12 @@ class Server {
     HwUnit hwUnit;
     PersistenceManager persistenceManager;
     Interpretator interpetator;
-    std::atomic<bool> serverRunning;
+    ClientUnit2 clientU;
+    DataBaseUnit dataBaseUnit;
+
+    InnerFunction func;
+
+    std::atomic<ServerStatus> serverStatus;
 
     AddTaskCMD addTaskCMD;
     LoadDataFromFileCMD loadDataFromFileCMD;
@@ -53,10 +64,21 @@ class Server {
     ScenarioMakeCMD scenarioMakeCMD;
     doScript doscript;
 
+    dbLoadTaskCMD dbloadTaskCMD;
+    dbOffloadTaskCMD dboffloadTaskCMD;
+    dbLoadScenarioCMD dbloadScenarioCMD;
+    dbOffloadScenarioCMD dboffloadScenarioCMD;
+
+    void initCli();
+    void initClientHandlers(int port);
+    void initDataBaseConnect(); // не факт что нужен
+
   public:
     // запуск сервера
+    void init(int port);
     void startServer(int argc, char* argv[]);
 
-    Server();
+    Server() = delete;
+    Server(int argc, char* argv[]);
     ~Server() = default;
 };

@@ -20,8 +20,10 @@
 //     return temp;
 // };
 
+
+//TODO конечный автомат
 std::expected<ParsedCMD, std::string> PreParse(const std::string& str) {
-    const std::string& tmpStr = str+" ";
+    const std::string& tmpStr = str+" "; // TODO исправить , убрать копирование
     ParsedCMD tempPC;
     bool titleFlag = true;
     bool argsTitleFlag = true;
@@ -53,6 +55,7 @@ std::expected<ParsedCMD, std::string> PreParse(const std::string& str) {
                     if(not argsTitleFlag)
                         return std::unexpected(tmpTitle);
                     tempPC.otherArgs.push_back(tmpTitle);
+                    tmpTitle = "";
                 }
                 argsTitleFlag = true;
             }
