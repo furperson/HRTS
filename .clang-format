@@ -1,0 +1,75 @@
+# --- .clang-format ---
+Language: Cpp
+BasedOnStyle: LLVM
+
+#-- - Indentation and Code Width -- -
+IndentWidth: 4 # Use 4 spaces for indentation
+UseTab: Never  # Never use tabs, only spaces
+ContinuationIndentWidth: 4 # Indentation for continuation lines (usually = IndentWidth)
+ColumnLimit: 100 # Maximum line length
+
+#-- - Brace Placement {} -- -
+BreakBeforeBraces: Attach # 'Attach' (K&R style) - opening brace on the same line
+# Alternative: 'Allman' (brace on a new line)
+AllowShortBlocksOnASingleLine: false # Do not place short blocks {} on a single line
+AllowShortFunctionsOnASingleLine: None # Do not place short functions on a single line (None / Empty / Inline / All)
+AllowShortIfStatementsOnASingleLine: Never # Never place if without braces or short if {} on a single line
+AllowShortLoopsOnASingleLine: false # Do not place short for/while loops {} on a single line
+AllowShortCaseLabelsOnASingleLine: false # Do not place 'case X: break;' on a single line
+
+#-- - Spaces -- -
+SpacesBeforeTrailingComments: 1 # One space before //-comment at the end of a line
+SpaceAfterCStyleCast: false    # No space after C-style cast: (int)x
+SpaceAfterTemplateKeyword: true # Space after 'template': template <typename T>
+SpaceBeforeAssignmentOperators: true # Space before assignment operators (=, +=, ...)
+SpaceBeforeParens: ControlStatements # Space before parentheses only in control statements (if, for, while), but not in function calls myFunc()
+SpacesInAngles: false          # No spaces inside template angle brackets: vector<int>
+SpacesInContainerLiterals: false # No spaces in container literals: {1, 2, 3}
+SpacesInParentheses: false     # No spaces inside regular parentheses: ( foo ) -> (foo)
+SpacesInCStyleCastParentheses: false # No spaces inside C-style cast parentheses: ( int ) -> (int)
+
+#-- - Pointers and References -- -
+PointerAlignment: Left      # Align * and & to the left (closer to the type): int* p;
+# Alternatives: Right (int *p;), Middle (int * p;)
+
+#-- - Classes and Structs -- -
+BreakBeforeInheritanceComma: false # Do not break line before comma in inheritance list
+BreakConstructorInitializers: BeforeColon # Break constructor initializer list before the colon if it doesn't fit. Aligns initializers vertically.
+ConstructorInitializerIndentWidth: 4 # Indentation for constructor initializer list (usually = IndentWidth)
+AllowAllConstructorInitializersOnNextLine: true # If the initializer list is wrapped, wrap all to a new line for consistency
+
+#-- - Namespaces -- -
+NamespaceIndentation: None # Do not add indentation inside namespaces: namespace N { class C; }
+# Alternative: Inner (indent only for content), All (indent for namespace line and content)
+
+#-- - Preprocessor Directives -- -
+IndentPPDirectives: None # Do not manage indentation of preprocessor directives (None / AfterHash / BeforeHash)
+AlignConsecutiveMacros: false # Do not align macro definitions
+
+#-- - Includes -- -
+SortIncludes: true # Sort #include directives
+IncludeBlocks: Regroup # Regroup include blocks after sorting (Preserve, Merge, Regroup)
+# IncludeCategories can be used for more fine-grained control if needed.
+# Example:
+# IncludeCategories:
+#   - Regex:           '^<.*\.h>'
+#     Priority:        1
+#   - Regex:           '^<.*>'
+#     Priority:        2
+#   - Regex:           '.*'
+#     Priority:        3
+
+#-- - Miscellaneous -- -
+BinPackArguments: true # Pack function arguments more densely if possible
+BinPackParameters: true # Pack function parameters more densely if possible
+FixNamespaceComments: true # Add // namespace N at the end of long namespaces
+
+# Disable formatting for code blocks wrapped in:
+# // clang-format off
+# ... code ...
+# // clang-format on
+DisableFormat: false # This means formatting is ON by default for the whole file.
+                     # Set to true to disable formatting unless specific ranges are enabled.
+                     # This option is usually false in a style file.
+
+# --- End of .clang-format ---
